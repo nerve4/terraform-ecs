@@ -23,5 +23,32 @@ module "ecs_cluster" {
       }
     }
   }
+
+  default_capacity_provider_use_fargate = false
+
+  fargate_capacity_providers = {
+    FARGATE      = {}
+    FARGATE_SPOT = {}
+  }
+
+  autoscaling_capacity_providers = {
+    acp-test = {
+      auto_scaling_group_arn         = var.acp_test_ag_arn
+      managed_termination_protection = var.acp_test_termination_protection
+
+      managed_scaling = {
+        maximum_scaling_step_size = var.acp_test_maximum_scaling
+        minimum_scaling_step_size = var.acp_test_minimum_scaling
+        status                    = "ENABLED"
+        target_capacity           = var.acp_test_target_capacity
+      }
+
+      default_capacity_provider_strategy = {
+        weight = var.acp_test_dcps_weight
+        base   = var.acp_test_dcps_base
+      }
+    }
+  }
+
   tags = var.tags
 }

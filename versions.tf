@@ -1,5 +1,5 @@
 # -----------------------------------------------
-# Versions for VPC-ECS
+# Versions for ECS
 # -----------------------------------------------
 terraform {
   required_providers {
